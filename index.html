@@ -252,7 +252,7 @@
     <div class="container">
         <header>
             <h1>📖 Pro Novel Translator</h1>
-            <p>Continuous Long Scrolling Reader & Instant Translator</p>
+            <p>High-Speed Continuous Reader & Instant Translator</p>
         </header>
 
         <div id="google_translate_element"></div>
@@ -262,7 +262,7 @@
             <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
                 <span class="dropzone-icon">📁</span>
                 <strong style="color: var(--text-main);">Click to Upload or Drag & Drop .TXT File</strong>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Supports full continuous scrolling text</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Supports high-speed full continuous translation</p>
             </div>
             <input type="file" id="fileInput" accept=".txt">
 
@@ -350,9 +350,8 @@
             let originalName = file.name;
             if (!originalName.endsWith('.txt')) { originalName += '.txt'; }
             
-            // Automatic 'H' prefix for translated file name
-            let translatedFileName = "H" + originalName;
-            document.body.setAttribute('data-filename', translatedFileName);
+            // Keeps exact original uploaded file name for download
+            document.body.setAttribute('data-filename', originalName);
             
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -364,7 +363,7 @@
         function loadPastedText() {
             const text = document.getElementById('pasteInput').value;
             if(text.trim() !== "") {
-                document.body.setAttribute('data-filename', 'Htranslated_novel.txt');
+                document.body.setAttribute('data-filename', 'translated_novel.txt');
                 processAndLoadText(text);
             } else {
                 alert("Pehle textarea me kuch text paste karein!");
@@ -412,7 +411,7 @@
             document.getElementById('novelContent').innerHTML = '<div class="placeholder-text">Yahan aapka Novel text continuous load hoga...</div>';
             document.getElementById('pasteInput').value = '';
             document.getElementById('fileInput').value = '';
-            document.body.setAttribute('data-filename', 'Htranslated_novel.txt');
+            document.body.setAttribute('data-filename', 'translated_novel.txt');
             updateStats('');
         }
 
@@ -434,7 +433,7 @@
                 return;
             }
             
-            let fileName = document.body.getAttribute('data-filename') || "Htranslated_novel.txt";
+            let fileName = document.body.getAttribute('data-filename') || "translated_novel.txt";
             const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
             const url = URL.createObjectURL(blob);
             
